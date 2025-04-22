@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     // Build Docker image for Skywings
-                    bat 'docker build -t skywings-site .'
+                    sh 'docker build -t skywings-site .'
                 }
             }
         }
@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     // Push Docker image to Docker Hub
-                    bat 'docker push spondan/skywings-site:latest'
+                    sh 'docker push spondan/skywings-site:latest'
                 }
             }
         }
