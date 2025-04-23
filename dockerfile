@@ -7,8 +7,8 @@ RUN rm -rf /usr/share/nginx/html/*
 # Copy your site into nginx’s html folder
 COPY . /usr/share/nginx/html
 
-# Expose port 80
-EXPOSE 80
+# Expose port 3000
+EXPOSE 3000
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
