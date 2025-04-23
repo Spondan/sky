@@ -2,20 +2,35 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Clone') {
+            steps {
+                echo 'Cloning repository...'
+                // Clone the repository using the scm (source code management)
+                checkout scm
+            }
+        }
+
+        stage('Build Docker Image') {
             steps {
                 script {
-                    // Build Docker image for Skywings
-                    sh 'docker build -t skywings-site .'
+                    // Build Docker image
+                    bat 'docker build -t skywings:latest .'
                 }
             }
         }
-        stage('Push') {
+
+        stage('Run Container') {
             steps {
                 script {
-                    // Push Docker image to Docker Hub
-                    sh 'docker push spondan/skywings-site:latest'
+                    // Run Docker container
+                    bat 'docker run -d -p 3000:3000 skywings:latest'
                 }
+            }
+        }
+
+        stage('Done') {
+            steps {
+                echo 'Build and Run complete!'
             }
         }
     }
