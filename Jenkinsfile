@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     // Run Docker container
-                    bat 'docker run -d -p 3000:3000 skywings:latest'
+                    bat 'docker run -d -p 80:80 skywings:latest'
                 }
             }
         }
