@@ -5,7 +5,6 @@ pipeline {
         stage('Clone') {
             steps {
                 echo 'Cloning repository...'
-                // Clone the repository using the scm (source code management)
                 checkout scm
             }
         }
@@ -13,7 +12,6 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build Docker image
                     bat 'docker build -t skywings:latest .'
                 }
             }
@@ -22,8 +20,11 @@ pipeline {
         stage('Run Container') {
             steps {
                 script {
-                    // Run Docker container
-                    bat 'docker run -d -p 80:80 skywings:latest'
+                    // Optional: stop and remove any running container
+                    bat 'docker rm -f skywings-container || exit 0'
+
+                    // Run Docker container and map port 80 to host port 3000
+                    bat 'docker run -d --name skywings-container -p 3000:80 skywings:latest'
                 }
             }
         }
